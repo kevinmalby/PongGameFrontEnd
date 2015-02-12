@@ -1,0 +1,34 @@
+.nav.nav-center {
+    margin:0;
+    float:none;
+}
+
+.navbar-inner{
+    text-align:center;
+}
+
+#header-submit {
+	padding-left: 40px;
+	padding-right: 40px;
+	font-weight: bold;
+	font-size: 16px;
+	margin-left: 20px;
+}
+
+#canvas {
+	margin-top: 20px;
+	border: 5px solid #000000;
+	cursor: none;
+	visibility: hidden;
+}
+
+form input[type=text] {
+	max-width: 150px;
+}
+
+.score {
+	width: 1024px;
+	height: 80px;
+	background: gray;
+	margin: 0 auto;
+}
