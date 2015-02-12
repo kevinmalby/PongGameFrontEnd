@@ -11,10 +11,13 @@ var playerName;
 var ball;
 var score;
 var updateIncrement = 1;
+var previousY;
+var paddleDirection;
 
 function playerDataToJSON() {
   var data = {
     "phase" : "paddle_update",
+    "paddle_direction" : paddleDirection,
     "paddle_position" : [paddle.x, paddle.y]
   };
   return JSON.stringify(data);
@@ -56,6 +59,7 @@ function processForm(e) {
 
   draw(); // Move this elsewhere to when the document is loaded, disable when not playing
 
+  previousY = 400;
   connect(ipAddress, port, playerName);
 
   // You must return false to prevent the default form behavior
@@ -75,6 +79,15 @@ function handleMouseMove(e) {
     newPaddleY = bottomWallRect.y - paddle.height - 5;
   } else {
     newPaddleY = mouseY - paddle.height / 2;
+  }
+
+
+  if (newPaddleY - previousY < 0) {
+    paddleDirection = -1;
+  } else if (newPaddleY - previousY > 0) {
+    paddleDirection = 1;
+  } else {
+    paddleDirection = 0;
   }
 
   paddle.redraw(paddle.x, newPaddleY);
