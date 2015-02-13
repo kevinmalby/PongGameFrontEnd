@@ -1,3 +1,8 @@
+body {
+	background: #3F3F3F;
+}
+
+
 .nav.nav-center {
     margin:0;
     float:none;
@@ -16,8 +21,6 @@
 }
 
 #canvas {
-	margin-top: 20px;
-	border: 5px solid #000000;
 	cursor: none;
 	visibility: hidden;
 }
@@ -31,6 +34,32 @@ form input[type=text] {
 	height: 150px;
 	background: gray;
 	margin: 0 auto;
+}
+
+.jumbotron {
+	background: #3F3F3F;
+}
+
+/*#player-name-display {
+
+	color: #5ABAD0;
+}
+*/
+
+.container-fluid {
+	margin-top: 20px;
+}
+
+#player-name-display {
+	font-weight: bolder;
+}
+
+#stats-header {
+	color: #5ABAD0;
+}
+
+#stats-container div {
+	color: #5ABAD0;
 }
 
 

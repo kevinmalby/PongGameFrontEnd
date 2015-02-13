@@ -19,6 +19,9 @@ function receiveMessage(payload) {
       // Show start animation
       // don't know if keeping this, but good for now
       canvas.style.visibility="visible";
+      $('#stats-header').show();
+      $('#stats-container').show();
+      setInterval(updatePaddle, 100);
       break;
   case "score_update":
       setScore(serverData.new_score, serverData.num_tries);
