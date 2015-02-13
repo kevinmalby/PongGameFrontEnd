@@ -4,24 +4,29 @@ function receiveMessage(payload) {
   serverData = JSON.parse(payload);
 
   switch (serverData.phase) {
-    case "initialization":
+  case "initialization":
       initialize();
       break;
-    case "initial_ball_position":
+  case "initial_ball_position":
       initializeBall(serverData.ball_position,serverData.ball_size);
       var json = {
-        "phase":"ready_to_start",
-        "ball_position":[ball.x, ball.y]
+          "phase":"ready_to_start",
+          "ball_position":[ball.x, ball.y]
       }
       server.send('message', JSON.stringify(json));
       break;
-    case "start":
+  case "start":
       // Show start animation
       // don't know if keeping this, but good for now
       canvas.style.visibility="visible";
       break;
-    case "ball_update":
+  case "ball_update":
       setBallPosition(serverData.ball_position);
+      break;
+  case "score_update":
+      setScore(serverData.new_score, serverData.num_tries);
+      break;
+		  
   }
 }
 

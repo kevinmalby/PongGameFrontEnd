@@ -10,6 +10,7 @@ var paddle;
 var playerName;
 var ball;
 var score;
+var attempts;
 var updateIncrement = 1;
 var previousY;
 var paddleDirection;
@@ -49,6 +50,18 @@ function setBallPosition(position) {
   ball.redraw(newBallPos[0], newBallPos[1]);
 }
 
+function setScore(newScore, totalTries) {
+    // TODO:: is this right?
+    if(score != newScore){
+	score = newScore;
+	attempts = totalTries;
+	$('#success-rate').text( "" + score/attempts + "%" ); 
+	$('#total-hits').html( score  ); 
+	$('#total-misses').text( attempts ); 
+	
+    }
+	
+}
 
 function processForm(e) {
   if (e.preventDefault) e.preventDefault();
