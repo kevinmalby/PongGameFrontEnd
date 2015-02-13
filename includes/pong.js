@@ -1,5 +1,3 @@
-//   Kevin Malby UCID: 36928917
-//   Kathryn Rodgers UCID: 39483825
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var canvasOffset = $("#canvas").offset();
@@ -97,6 +95,7 @@ function processForm(e) {
 
       
       disconnect(ipAddress, port, playerName);
+    }
 
 
   // You must return false to prevent the default form behavior
