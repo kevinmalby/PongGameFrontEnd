@@ -57,7 +57,8 @@ function setScore(newScore, totalTries) {
     if(score != newScore){
 	score = newScore;
 	attempts = totalTries;
-	$('#success-rate').text( "" + score/attempts + "%" ); 
+  $('#player-name-display').text(playerName + "'s Stats");
+	$('#success-rate').text( "" + Math.round(score/attempts * 100) + "%" ); 
 	$('#total-hits').html( score  ); 
 	$('#total-misses').text( attempts ); 
 	

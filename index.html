@@ -1,85 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <!-- Set the viewport so this responsive site displays correctly on mobile devices -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 3 Responsive Design Tutorial | RevillWeb.com</title>
-    <!-- Include bootstrap CSS -->
-    <link href="includes/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="includes/style.css" rel="stylesheet">
-  </head>
-  <body>
-    <!-- Site header and navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-	<div class="navbar-header">
-	  <a class="navbar-brand" href="#">ICS167 Pong - Kathryn Rodgers & Kevin Malby</a>
-	</div>
-	<div id="navbar">
-	  <form id="play-info-form" class="navbar-form navbar-right">
-	    <div class="form-group">
-	      <input id="ip-address-input" type="text" placeholder="IP Address" class="form-control">
-	    </div>
-	    <div class="form-group">
-	      <input id="port-number-input" type="text" placeholder="Port" class="form-control">
-	    </div>
-	    <div class="form-group">
-	      <input id="player-name-input" type="text" placeholder="Player Name" class="form-control">
-	    </div>
-	    <button id="header-submit" type="submit" class="btn btn-success">Play!</button>
-	  </form>
-	</div>
-      </div>
-    </nav>
-    <div class="jumbotron">
-      <div class="container-fluid">
-	<!---- <div class="score"> --->
-	
-          <div class=".col-md-3" id="player-name">
-	    <h3> PLAYER NAME</h3>
-	  </div>
-	  
-	  <label> success </label>
-	   
-	  <div class=".col-md-3" id="success-rate" >
-	    <h3> rate </h3>
-	  </div>
-        
-	  <div class=".col-md-3" id="total-hits">
-	    <h3> hits </h3>
-	    <h3> total </h3>
-	    
-	  </div>
-          <div class=".col-md-3" id="total-misses">
-	    <h3> misses </h3>
-	    <h3> nummis </h3>
-	    
-	  </div>
-	</div>
-      </div>
-      <div class="modal hide" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false">
-        <div class="modal-header">
-          <h1>Processing...</h1>
+    <head>
+        <meta charset="utf-8">
+        <!-- Set the viewport so this responsive site displays correctly on mobile devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bootstrap 3 Responsive Design Tutorial | RevillWeb.com</title>
+        <!-- Include bootstrap CSS -->
+        <link href="includes/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="includes/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- Site header and navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">ICS167 Pong - Kathryn Rodgers & Kevin Malby</a>
+                </div>
+                <div id="navbar">
+                    <form id="play-info-form" class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <input id="ip-address-input" type="text" placeholder="IP Address" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input id="port-number-input" type="text" placeholder="Port" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input id="player-name-input" type="text" placeholder="Player Name" class="form-control">
+                        </div>
+                        <button id="header-submit" type="submit" class="btn btn-success">Play!</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="jumbotron">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">RAWWWWR</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">GRAAAARR</div>
+                    <div class="col-md-6">FLARRRR</div>
+                    <div class="col-md-4">GLARBLGURGHL</div>
+                </div>
+            </div>
+            <!-- <div class="container-fluid">
+                    
+                    
+                <div class=".col-md-3" id="player-name">
+                        <h3 id="player-name-display"></h3>
+                    </div>
+                    
+                    <label> success </label>
+
+                    <div class=".col-md-3" id="success-rate" >
+                        <h3> rate </h3>
+                    </div>
+                
+                    <div class=".col-md-3" id="total-hits">
+                        <h3> hits </h3>
+                        <h3> total </h3>
+                        
+                    </div>
+                <div class=".col-md-3" id="total-misses">
+                        <h3> misses </h3>
+                        <h3> nummis </h3>
+                        
+                    </div>
+            </div> -->
+            
+            <!-- <div class="modal hide" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false">
+                <div class="modal-header">
+                    <h1>Processing...</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="progress progress-striped active">
+                        <div class="bar" style="width: 100%;"></div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- Example row of columns -->
+            <div class="container">
+                <canvas id="canvas" width="1024" height="756"></canvas>
+            </div>
         </div>
-        <div class="modal-body">
-          <div class="progress progress-striped active">
-            <div class="bar" style="width: 100%;"></div>
-          </div>
-        </div>
-      </div>
-      <!-- Example row of columns -->
-      <div class="container">
-        <canvas id="canvas" width="1024" height="756"></canvas>
-      </div>  <!-- /container -->
-    </div>
-    <!-- Include jQuery and bootstrap JS plugins -->
-    <script src="includes/jquery/jquery-2.1.3.min.js"></script>
-    <script src="includes/bootstrap/js/bootstrap.min.js"></script>
-    <script src="shapes.js"></script>
-    <script src="scratch.js"></script>
-    <script src="includes/fancywebsocket.js"></script>
-    <script src="includes/pong.js"></script>
-    <script src="networking.js"></script>
-  </body>
+        <!-- Include jQuery and bootstrap JS plugins -->
+        <script src="includes/jquery/jquery-2.1.3.min.js"></script>
+        <script src="includes/bootstrap/js/bootstrap.min.js"></script>
+        <script src="shapes.js"></script>
+        <script src="scratch.js"></script>
+        <script src="includes/fancywebsocket.js"></script>
+        <script src="includes/pong.js"></script>
+        <script src="networking.js"></script>
+    </body>
 </html>
