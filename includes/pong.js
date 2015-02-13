@@ -1,8 +1,5 @@
-/**
-   Kevin Malby UCID: 36928917
-   Kathryn Rodgers UCID: 39483825
-**/
-
+//   Kevin Malby UCID: 36928917
+//   Kathryn Rodgers UCID: 39483825
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var canvasOffset = $("#canvas").offset();
@@ -58,7 +55,6 @@ function setBallPosition(position) {
 }
 
 function setScore(newScore, totalTries) {
-  // TODO:: is this right?
   if (score != newScore || attempts != totalTries) {
     score = newScore;
     attempts = totalTries;

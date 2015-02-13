@@ -1,17 +1,10 @@
 <!DOCTYPE html>
-<!----  
-/**
-   Kevin Malby UCID: 36928917
-   Kathryn Rodgers UCID: 39483825
-**/
-
----->
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <!-- Set the viewport so this responsive site displays correctly on mobile devices -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bootstrap 3 Responsive Design Tutorial | RevillWeb.com</title>
+        <title>Pong</title>
         <!-- Include bootstrap CSS -->
         <link href="includes/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="includes/style.css" rel="stylesheet">
@@ -24,7 +17,6 @@
                     <a class="navbar-brand" href="#">ICS167 Pong - Kathryn Rodgers & Kevin Malby</a>
                 </div>
                 <div id="navbar">
-		  
                     <form id="play-info-form" class="navbar-form navbar-right">
                         <div class="form-group">
                             <input id="ip-address-input" type="text" placeholder="IP Address" class="form-control">
@@ -42,40 +34,19 @@
         </nav>
         <div class="container">
         <div class="jumbotron">
-          <div class="container-fluid">
-            <div class="row-fluid">
-              <div class="span3"><p>RAWWWWR</p></div>
-              <div class="span3"><h1>GRAAAARR</h1></div>
-              <div class="span3"><h3>FLARRRR</h3></div>
-              <div class="span3"><h3>GLARBLGURGHL</h3></div>
-	    </div>
-	  </div>
-          <div class="container-fluid">
-            <!---        
-                    
-                <div class=".col-md-3" id="player-name">
-                        <h3 id="player-name-display"></h3>
-                    </div>
-
-
-                    
-                    <label> success </label>
-
-                    <div class=".col-md-3" id="success-rate" >
-                        <h3> rate </h3>
-                    </div>
-                
-                    <div class=".col-md-3" id="total-hits">
-                        <h3> hits </h3>
-                        <h3> total </h3>
-                        
-                    </div>
-                <div class=".col-md-3" id="total-misses">
-                        <h3> misses </h3>
-                        <h3> nummis </h3>
-                        
-                    </div>
-            </div> -->
+            <div class="container-fluid">
+                <div class="row" id="stats-header">
+                    <div class="col-md-2 col-md-offset-4 text-center"><p>Success Rate</p></div>
+                    <div class="col-md-2 text-center"><p>Total Hits</p></div>
+                    <div class="col-md-2 text-center"><p>Total Misses</p></div>
+                </div>
+                <div class="row" id="stats-container">
+                    <div class="col-md-4 text-right"><p id="player-name-display"></p></div>
+                    <div class="col-md-2 text-center"><p id="success-rate"></p></div>
+                    <div class="col-md-2 text-center"><p id="total-hits"></p></div>
+                    <div class="col-md-2 text-center"><p id="total-misses"></p></div>
+                </div>
+            </div>
             
             <!-- <div class="modal hide" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false">
                 <div class="modal-header">
