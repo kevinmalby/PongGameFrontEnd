@@ -67,8 +67,15 @@ function connect(ipAddress, port, playerName) {
 
   // //Log any messages sent from server
   server.bind('message', receiveMessage);
-
+  
   server.connect();
   /* This send message needs to be somehwere else too, server
   is still in connecting state at this point*/
+}
+
+function disconnect(ipAddress, port, playerName){
+
+    server.send("message", "{\"phase\":\"disconnect\"}");
+    server.disconnect();
+
 }

@@ -39,7 +39,7 @@ function draw() {
 
   paddle = new rect("paddle", 10, 400, 30, 120, "rgba(0,112,124,0.95)", "rgba(0,0,0,0)", 0);
   //paddle.draw();
-}
+   }
 
 function initializeBall(position, ballSize) {
   ball = new circle("ball", position[0], position[1], ballSize, 0, Math.PI*2, "rgba(0,112,124,0.95)", "black", 5);
@@ -68,17 +68,37 @@ function setScore(newScore, totalTries) {
 
 function processForm(e) {
   if (e.preventDefault) e.preventDefault();
+  
+  subBtn = $("#header-submit");
+  
+  btnText = subBtn.text();
 
-  var ipAddress = $("#ip-address-input").val();
-  var port = $("#port-number-input").val();
-  playerName = $("#player-name-input").val();
+  if(btnText != "Disconnect"){
+      
+      var ipAddress = $("#ip-address-input").val();
+      var port = $("#port-number-input").val();
+      playerName = $("#player-name-input").val();
+      
+      draw(); // Move this elsewhere to when the document is loaded, disable when not playing
+      
+      previousY = 400;
+      connect(ipAddress, port, playerName);
+      subBtn.text("Disconnect");
+  } else {
 
-  draw(); // Move this elsewhere to when the document is loaded, disable when not playing
+      subBtn.text("Play!");
+      $("#ip-address-input").val("");
+      $("#port-number-input").val("");
+      $("#player-name-input").val("");
 
-  previousY = 400;
-  connect(ipAddress, port, playerName);
+      ctx.clearRect(0,0, canvas.width, canvas.height);
+      canvas.style.visibility="hidden";
 
-  // You must return false to prevent the default form behavior
+      
+      disconnect(ipAddress, port, playerName);
+
+  }
+    // You must return false to prevent the default form behavior
   return false;
 }
 
