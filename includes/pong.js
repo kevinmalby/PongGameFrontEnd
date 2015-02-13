@@ -1,3 +1,8 @@
+/**
+   Kevin Malby UCID: 36928917
+   Kathryn Rodgers UCID: 39483825
+**/
+
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var canvasOffset = $("#canvas").offset();
@@ -14,14 +19,14 @@ var attempts;
 var updateIncrement = 1;
 var previousY;
 var paddleDirection;
-
-setInterval(updatePaddle, 100);
+$('#stats-container').hide();
+$('#stats-header').hide();
 
 function playerDataToJSON() {
   var data = {
-    "phase" : "paddle_update",
-    "paddle_direction" : paddleDirection,
-    "paddle_position" : [paddle.x, paddle.y - (topWallRect.x + topWallRect.height)]
+    "phase": "paddle_update",
+    "paddle_direction": paddleDirection,
+    "paddle_position": [paddle.x, paddle.y - (topWallRect.x + topWallRect.height)]
   };
   return JSON.stringify(data);
 }
@@ -42,28 +47,28 @@ function draw() {
    }
 
 function initializeBall(position, ballSize) {
-  ball = new circle("ball", position[0], position[1], ballSize, 0, Math.PI*2, "rgba(0,112,124,0.95)", "black", 5);
+  ball = new circle("ball", position[0], position[1], ballSize, 0, Math.PI * 2, "rgba(0,112,124,0.95)", "black", 5);
 }
 
 function setBallPosition(position) {
   // todo, need to change this so that it works
-  ctx.clearRect(ball.x - ball.radius, ball.y - ball.radius, ball.radius*2, ball.radius*2);
+  ctx.clearRect(ball.x - ball.radius, ball.y - ball.radius, ball.radius * 2, ball.radius * 2);
   newBallPos = serverData.ball_position;
   ball.redraw(newBallPos[0], newBallPos[1]);
 }
 
 function setScore(newScore, totalTries) {
-    // TODO:: is this right?
-    if(score != newScore){
-	score = newScore;
-	attempts = totalTries;
-  $('#player-name-display').text(playerName + "'s Stats");
-	$('#success-rate').text( "" + Math.round(score/attempts * 100) + "%" ); 
-	$('#total-hits').html( score  ); 
-	$('#total-misses').text( attempts ); 
-	
-    }
-	
+  // TODO:: is this right?
+  if (score != newScore || attempts != totalTries) {
+    score = newScore;
+    attempts = totalTries;
+    $('#player-name-display').text(playerName + "'s Stats");
+    $('#success-rate').text("" + Math.round(score / attempts * 100) + "%");
+    $('#total-hits').html(score);
+    $('#total-misses').text(attempts);
+
+  }
+
 }
 
 function processForm(e) {
@@ -97,8 +102,8 @@ function processForm(e) {
       
       disconnect(ipAddress, port, playerName);
 
-  }
-    // You must return false to prevent the default form behavior
+
+  // You must return false to prevent the default form behavior
   return false;
 }
 
@@ -131,7 +136,7 @@ function handleMouseMove(e) {
   }
 
   paddle.redraw(paddle.x, newPaddleY);
-  
+
 }
 
 var form = document.getElementById("play-info-form");

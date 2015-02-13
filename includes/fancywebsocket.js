@@ -1,3 +1,11 @@
+/**
+   Kevin Malby UCID: 36928917
+   Kathryn Rodgers UCID: 39483825
+
+   This file was given to us.
+
+
+**/
 var FancyWebSocket = function(url)
 {
 	var callbacks = {};
