@@ -41,7 +41,7 @@ var rect = (function () {
         ctx.strokeStyle = stroke;
         ctx.lineWidth = this.strokewidth;
         ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
+        //ctx.stroke();
         ctx.fill();
         ctx.restore();
     }
@@ -91,7 +91,7 @@ var circle = (function () {
         ctx.strokeStyle = stroke;
         ctx.lineWidth = this.strokewidth;
         ctx.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle, true);
-        ctx.stroke();
+        //ctx.stroke();
         ctx.fill();
         ctx.restore();
     }

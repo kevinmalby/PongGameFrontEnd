@@ -20,13 +20,14 @@ function receiveMessage(payload) {
       // don't know if keeping this, but good for now
       canvas.style.visibility="visible";
       break;
-  case "ball_update":
-      setBallPosition(serverData.ball_position);
-      break;
   case "score_update":
       setScore(serverData.new_score, serverData.num_tries);
       break;
-		  
+    case "ball_update":
+      var pos = serverData.ball_position;
+      pos[1] = pos[1] + (topWallRect.y + topWallRect.height);
+      setBallPosition(pos);
+      break;
   }
 }
 
@@ -36,10 +37,10 @@ function initialize() {
     "phase":"initial_dimensions",
     "map_dimensions": [offsetX,
       offsetY + (topWallRect.y + topWallRect.height),
-      farWallRect.x, bottomWallRect.y
+      farWallRect.x, bottomWallRect.y - (topWallRect.y + topWallRect.height)
     ],
     "paddle_dimensions": [paddle.x, paddle.y,
-      paddle.width, paddle.height
+      paddle.height, paddle.width
     ],
   }
   send(JSON.stringify(initialData));

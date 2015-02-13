@@ -15,24 +15,26 @@ var updateIncrement = 1;
 var previousY;
 var paddleDirection;
 
+setInterval(updatePaddle, 100);
+
 function playerDataToJSON() {
   var data = {
     "phase" : "paddle_update",
     "paddle_direction" : paddleDirection,
-    "paddle_position" : [paddle.x, paddle.y]
+    "paddle_position" : [paddle.x, paddle.y - (topWallRect.x + topWallRect.height)]
   };
   return JSON.stringify(data);
 }
 
 function draw() {
 
-  topWallRect = new rect("top-wall-rectangle", 10, 10, 1004, 40, "rgba(0,112,124,0.95)", "black", 5);
+  topWallRect = new rect("top-wall-rectangle", 10, 10, 1004, 40, "rgba(0,112,124,0.95)", "black", 0);
   topWallRect.draw();
 
-  farWallRect = new rect("far-wall-rectangle", 974, 10, 40, 736, "rgba(0,112,124,0.95)", "black", 5);
+  farWallRect = new rect("far-wall-rectangle", 974, 10, 40, 736, "rgba(0,112,124,0.95)", "black", 0);
   farWallRect.draw();
 
-  bottomWallRect = new rect("bottom-wall-rectangle", 10, 706, 1004, 40, "rgba(0,112,124,0.95)", "black", 5);
+  bottomWallRect = new rect("bottom-wall-rectangle", 10, 706, 1004, 40, "rgba(0,112,124,0.95)", "black", 0);
   bottomWallRect.draw();
 
   paddle = new rect("paddle", 10, 400, 30, 120, "rgba(0,112,124,0.95)", "rgba(0,0,0,0)", 0);
@@ -45,7 +47,7 @@ function initializeBall(position, ballSize) {
 
 function setBallPosition(position) {
   // todo, need to change this so that it works
-  ctx.clearRect(ball.x - ball.radius - 3, ball.y - ball.radius - 3, ball.radius*2 + 6, ball.radius*2 + 6);
+  ctx.clearRect(ball.x - ball.radius, ball.y - ball.radius, ball.radius*2, ball.radius*2);
   newBallPos = serverData.ball_position;
   ball.redraw(newBallPos[0], newBallPos[1]);
 }
@@ -79,6 +81,19 @@ function processForm(e) {
   return false;
 }
 
+function updatePaddle() {
+  if (paddle.y - previousY < 0) {
+    paddleDirection = -1;
+  } else if (paddle.y - previousY > 0) {
+    paddleDirection = 1;
+  } else {
+    paddleDirection = 0;
+  }
+  previousY = paddle.y;
+
+  send(playerDataToJSON());
+}
+
 function handleMouseMove(e) {
   mouseX = parseInt(e.clientX - offsetX);
   mouseY = parseInt(e.clientY - offsetY);
@@ -94,18 +109,8 @@ function handleMouseMove(e) {
     newPaddleY = mouseY - paddle.height / 2;
   }
 
-
-  if (newPaddleY - previousY < 0) {
-    paddleDirection = -1;
-  } else if (newPaddleY - previousY > 0) {
-    paddleDirection = 1;
-  } else {
-    paddleDirection = 0;
-  }
-
   paddle.redraw(paddle.x, newPaddleY);
-
-  send(playerDataToJSON());
+  
 }
 
 var form = document.getElementById("play-info-form");
