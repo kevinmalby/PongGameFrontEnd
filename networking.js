@@ -15,18 +15,32 @@ function receiveMessage(payload) {
       }
       server.send('message', JSON.stringify(json));
       break;
+  case "send_info":
+      server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").val()  + "\" \}");
+      break;
+  case "wait":
+      // ping back with a ready message in 2 seconds
+      setTimeout(2000, function(){server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").val()  + "\" \}");
+      subBtn.text("Waiting for Partner"); 
+
+      break;
+  case "set_opponent":
+      setOpponent(serverData.name);
+      break;    
   case "start":
       // Show start animation
       // don't know if keeping this, but good for now
       canvas.style.visibility="visible";
       $('#stats-header').show();
       $('#stats-container').show();
+      subBtn.text("Disconnect"); 
+      
       setInterval(updatePaddle, 100);
       break;
   case "score_update":
       setScore(serverData.new_score, serverData.num_tries);
       break;
-    case "ball_update":
+  case "ball_update":
       var pos = serverData.ball_position;
       pos[1] = pos[1] + (topWallRect.y + topWallRect.height);
       setBallPosition(pos);
