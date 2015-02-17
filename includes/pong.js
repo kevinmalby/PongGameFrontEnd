@@ -16,6 +16,7 @@ var previousY;
 var paddleDirection;
 $('#stats-container').hide();
 $('#stats-header').hide();
+$('#loading-container').hide();
 
 function playerDataToJSON() {
   var data = {

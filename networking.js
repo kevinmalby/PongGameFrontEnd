@@ -19,17 +19,21 @@ function receiveMessage(payload) {
       server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").text() + "\"}");
       break;
     case "wait":
-      subBtn.text("Waiting for Partner");
+      $('#loading-container').show();
+       //setTimeout(100, function() {
+          //server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").text() + "\" }");
+	  //subBtn.text("Ping!");
+      //}  
+		//);
       // ping back with a ready message in 2 seconds
-
-      setTimeout(100, function() {
-          server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").text() + "\" }");
-	  subBtn.text("Ping!");
-      }  
-		);
+      // setTimeout(2000, function() {
+      //   server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").val() + "\" \}");
+      //   subBtn.text("Waiting for Partner");
+      // });
       break;
     case "set_opponent":
       setOpponent(serverData.name);
+      $('#loading-container').hide();
       break;
     case "start":
       // Show start animation

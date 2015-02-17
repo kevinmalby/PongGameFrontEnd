@@ -34,42 +34,53 @@
             </div>
         </nav>
         <div class="container">
-        <div class="jumbotron">
-            <div class="container-fluid">
-                <div class="row" id="stats-header">
-                    <div class="col-md-2 col-md-offset-4 text-center"><p>Success Rate</p></div>
-                    <div class="col-md-2 text-center"><p>Total Hits</p></div>
-                    <div class="col-md-2 text-center"><p>Total Misses</p></div>
-                </div>
-                <div class="row" id="stats-container">
-                    <div class="col-md-4 text-right"><p id="player-name-display"></p></div>
-                    <div class="col-md-2 text-center"><p id="success-rate"></p></div>
-                    <div class="col-md-2 text-center"><p id="total-hits"></p></div>
-                    <div class="col-md-2 text-center"><p id="total-misses"></p></div>
-                </div>
-		<div class="row" id="stats2-container"> 
-		  <div class="col-md-4 text-right"><p id="player2-name-display"></p></div>
-                  <div class="col-md-2 text-center"><p id="player2-success-rate"></p></div>
-                  <div class="col-md-2 text-center"><p id="player2-total-hits"></p></div>
-                  <div class="col-md-2 text-center"><p id="player2-total-misses"></p></div>
-                </div>
-            </div>
-            
-            <!-- <div class="modal hide" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false">
-                <div class="modal-header">
-                    <h1>Processing...</h1>
-                </div>
-                <div class="modal-body">
-                    <div class="progress progress-striped active">
-                        <div class="bar" style="width: 100%;"></div>
+            <div class="jumbotron vertical-center">
+                <div class="container-fluid">
+                    <div class="row" id="stats-header">
+                        <div class="col-md-2 col-md-offset-4 text-center"><p>Success Rate</p></div>
+                        <div class="col-md-2 text-center"><p>Total Hits</p></div>
+                        <div class="col-md-2 text-center"><p>Total Misses</p></div>
+                    </div>
+                    <div class="row" id="stats-container">
+                        <div class="col-md-4 text-right"><p id="player-name-display"></p></div>
+                        <div class="col-md-2 text-center"><p id="success-rate"></p></div>
+                        <div class="col-md-2 text-center"><p id="total-hits"></p></div>
+                        <div class="col-md-2 text-center"><p id="total-misses"></p></div>
+                    </div>
+                    <div class="row" id="stats2-container">
+                        <div class="col-md-4 text-right"><p id="player2-name-display"></p></div>
+                        <div class="col-md-2 text-center"><p id="player2-success-rate"></p></div>
+                        <div class="col-md-2 text-center"><p id="player2-total-hits"></p></div>
+                        <div class="col-md-2 text-center"><p id="player2-total-misses"></p></div>
                     </div>
                 </div>
-            </div> -->
-            <!-- Example row of columns -->
-            <div class="container">
-                <canvas id="canvas" width="1024" height="756"></canvas>
+                <div class="container" id="loading-container">
+                    <div class="row">
+                    <div class="col-md-4"></div>
+                        <button id="loading-button" class="btn btn-lg disabled col-md-4">
+                            <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                            Waiting For Opponent...
+                        </button>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+                
+                
+                <!-- <div class="modal hide" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-header">
+                        <h1>Processing...</h1>
+                    </div>
+                    <div class="modal-body">
+                        <div class="progress progress-striped active">
+                            <div class="bar" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- Example row of columns -->
+                <div class="container">
+                    <canvas id="canvas" width="1024" height="756"></canvas>
+                </div>
             </div>
-        </div>
         </div>
         <!-- Include jQuery and bootstrap JS plugins -->
         <script src="includes/jquery/jquery-2.1.3.min.js"></script>
