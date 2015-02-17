@@ -12,18 +12,21 @@ function receiveMessage(payload) {
       var json = {
         "phase": "ready_to_start",
         "ball_position": [ball.x, ball.y]
-      }
+      };
       server.send('message', JSON.stringify(json));
       break;
     case "send_info":
-      server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").val() + "\" \}");
+      server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").text() + "\"}");
       break;
     case "wait":
+      subBtn.text("Waiting for Partner");
       // ping back with a ready message in 2 seconds
-      setTimeout(2000, function() {
-        server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").val() + "\" \}");
-        subBtn.text("Waiting for Partner");
-      });
+
+      setTimeout(100, function() {
+          server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").text() + "\" }");
+	  subBtn.text("Ping!");
+      }  
+		);
       break;
     case "set_opponent":
       setOpponent(serverData.name);
@@ -60,8 +63,8 @@ function initialize() {
     ],
     "paddle_dimensions": [paddle.x, paddle.y,
       paddle.height, paddle.width
-    ],
-  }
+    ]
+  };
   send(JSON.stringify(initialData));
 }
 
