@@ -24,11 +24,22 @@ var debug = false; // make it so I can see things without dealin with server :)
 
 function playerDataToJSON() {
 
+  var curPaddleX;
+  var curPaddleY;
+  if (playerNum == 0) {
+    curPaddleX = paddle.x;
+    curPaddleY = paddle.y;
+  }
+  else {
+    curPaddleX = 984;
+    curPaddleY = paddle.y;
+  }
+
   var data = {
     "phase": "paddle_update",
     "name":playerName,
     "paddle_direction": paddleDirection,
-    "paddle_position": [paddle.x, paddle.y - (topWallRect.x + topWallRect.height)]
+    "paddle_position": [curPaddleX, curPaddleY - (topWallRect.x + topWallRect.height)]
   };
   return JSON.stringify(data);
 }
