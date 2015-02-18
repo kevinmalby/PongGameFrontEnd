@@ -19,7 +19,7 @@ $('#stats-container').hide();
 $('#stats-header').hide();
 $('#loading-container').hide();
 
-var debug = true; // make it so I can see things without dealin with server :)
+var debug = false; // make it so I can see things without dealin with server :)
 
 function playerDataToJSON() {
     var data = {
@@ -175,7 +175,8 @@ function handleMouseMove(e) {
     paddle.redraw(paddle.x, newPaddleY);
 
     //// DELETE ME ////
-    setOpponentPaddle(paddleRight.x, newPaddleY);
+    if(debug)
+	setOpponentPaddle(paddleRight.x, newPaddleY);
 
 }
 
