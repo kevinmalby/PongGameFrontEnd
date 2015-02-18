@@ -19,6 +19,7 @@ var FancyWebSocket = function(url)
 	};
 
 	this.send = function(event_name, event_data){
+		console.log(event_data);
 		this.conn.send( event_data );
 		return this;
 	};

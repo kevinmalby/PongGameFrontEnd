@@ -5,26 +5,32 @@ function receiveMessage(payload) {
 
   switch (serverData.phase) {
     case "initialization":
-      initialize();
+      initialize(serverData.player_number);
       break;
     case "initial_ball_position":
       initializeBall(serverData.ball_position, serverData.ball_size);
       var json = {
         "phase": "ready_to_start",
+        "name": playerName,
         "ball_position": [ball.x, ball.y]
       };
       server.send('message', JSON.stringify(json));
       break;
     case "send_info":
-      server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").text() + "\"}");
+      var json = {
+        "phase": "exchange_info",
+        "name": playerName
+      };
+      server.send('message', JSON.stringify(json));
       break;
     case "wait":
       $('#loading-container').show();
-       //setTimeout(100, function() {
-          //server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").text() + "\" }");
-	  //subBtn.text("Ping!");
+      //server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").val() + "\" \}");
+      //setTimeout(100, function() {
+      //server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").text() + "\" }");
+      //subBtn.text("Ping!");
       //}  
-		//);
+      //);
       // ping back with a ready message in 2 seconds
       // setTimeout(2000, function() {
       //   server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").val() + "\" \}");
@@ -48,6 +54,15 @@ function receiveMessage(payload) {
     case "score_update":
       setScore(serverData.new_score, serverData.num_tries);
       break;
+    case "opponent_paddle_update":
+      var opponentPaddlePos = serverData.opponent_paddle;
+      if (playerNum == 0) {
+        setOpponentPaddle(opponentPaddlePos[0], opponentPaddlePos[1])
+      } else {
+        setOpponentPaddle(opponentPaddlePos[0] + 984, opponentPaddlePos[1])
+      }
+
+      break;
     case "ball_update":
       var pos = serverData.ball_position;
       pos[1] = pos[1] + (topWallRect.y + topWallRect.height);
@@ -57,19 +72,38 @@ function receiveMessage(payload) {
 }
 
 
-function initialize() {
-  pongApp.showPleaseWait();
-  var initialData = {
-    "phase": "initial_dimensions",
-    "map_dimensions": [offsetX,
-      offsetY + (topWallRect.y + topWallRect.height),
-      farWallRect.x, bottomWallRect.y - (topWallRect.y + topWallRect.height)
-    ],
-    "paddle_dimensions": [paddle.x, paddle.y,
-      paddle.height, paddle.width
-    ]
-  };
-  send(JSON.stringify(initialData));
+function initialize(playerNumber) {
+  playerNum = playerNumber;
+  if (playerNum == 0) {
+    initialDataPlayerOne = {
+      "phase": "initial_dimensions",
+      "name": playerName,
+      "map_dimensions": [offsetX,
+        offsetY + (topWallRect.y + topWallRect.height),
+        1024, bottomWallRect.y - (topWallRect.y + topWallRect.height)
+      ],
+      "paddle_dimensions": [paddle.x, paddle.y,
+        paddle.height, paddle.width
+      ]
+    };
+    console.log(JSON.stringify(initialDataPlayerOne));
+    send(JSON.stringify(initialDataPlayerOne));
+  } else {
+    initialDataPlayerTwo = {
+      "phase": "initial_dimensions",
+      "name": playerName,
+      "map_dimensions": [offsetX,
+        offsetY + (topWallRect.y + topWallRect.height),
+        1024, bottomWallRect.y - (topWallRect.y + topWallRect.height)
+      ],
+      "paddle_dimensions": [paddle.x + 984, paddle.y,
+        paddle.height, paddle.width
+      ]
+    };
+    console.log(JSON.stringify(initialDataPlayerTwo));
+    send(JSON.stringify(initialDataPlayerTwo));
+  }
+  
 }
 
 function send(text) {
@@ -100,8 +134,12 @@ function connect(ipAddress, port, playerName) {
 }
 
 function disconnect(ipAddress, port, playerName) {
+  var json = {
+    "phase": "disconnect",
+    "name": playerName
+  }
 
-  server.send("message", "{\"phase\":\"disconnect\"}");
+  server.send("message", JSON.stringify(json));
   server.disconnect();
 
 }

@@ -9,6 +9,7 @@ var bottomWallRect;
 var paddle; // player one is me, player two is other
 var paddleRight; // player one gets to be on Left, player two is on right
 var playerName;
+var playerNum;
 var ball;
 var score;
 var attempts;
@@ -22,12 +23,14 @@ $('#loading-container').hide();
 var debug = false; // make it so I can see things without dealin with server :)
 
 function playerDataToJSON() {
-    var data = {
-	"phase": "paddle_update",
-	"paddle_direction": paddleDirection,
-	"paddle_position": [paddle.x, paddle.y - (topWallRect.x + topWallRect.height)]
-    };
-    return JSON.stringify(data);
+
+  var data = {
+    "phase": "paddle_update",
+    "name":playerName,
+    "paddle_direction": paddleDirection,
+    "paddle_position": [paddle.x, paddle.y - (topWallRect.x + topWallRect.height)]
+  };
+  return JSON.stringify(data);
 }
 
 function draw() {
@@ -42,7 +45,7 @@ function draw() {
     bottomWallRect.draw();
     
     paddle = new rect("paddle", 10, 400, 30, 120, "rgba(0,112,124,0.95)", "rgba(0,0,0,0)", 0);
-    paddleRight = new rect("paddleRight", 974, 400, 30, 120, "rgba(0,112,124,0.95)", "rgba(0,0,0,0)", 0);
+    paddleRight = new rect("paddleRight", 984, 400, 30, 120, "rgba(0,112,124,0.95)", "rgba(0,0,0,0)", 0);
     //paddle.draw();
 }
 
