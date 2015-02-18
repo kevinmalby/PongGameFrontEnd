@@ -54,6 +54,10 @@ form input[type=text] {
 	font-weight: bolder;
 }
 
+#player2-name-display {
+	font-weight: bolder;
+}
+
 #stats-header {
 	color: #5ABAD0;
 }

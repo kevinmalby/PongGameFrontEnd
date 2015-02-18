@@ -27,20 +27,10 @@ function receiveMessage(payload) {
 	break;
     case "wait":
 	$('#loading-container').show();
-	//server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").val() + "\" \}");
-	//setTimeout(100, function() {
-	//server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").text() + "\" }");
-	//subBtn.text("Ping!");
-	//}  
-	//);
-	// ping back with a ready message in 2 seconds
-	// setTimeout(2000, function() {
-	//   server.send('message', "\{\"phase\":\"exchange_info\", \"name\":\"" + $("#player-name-input").val() + "\" \}");
-	//   subBtn.text("Waiting for Partner");
-	// });
 	break;
     case "set_opponent":
 	setOpponent(serverData.name);
+	console.log("opponentName: " + serverData.name);
 	$('#loading-container').hide();
 	break;
     case "start":
@@ -63,6 +53,7 @@ function receiveMessage(payload) {
 	break;
     case "score_update":
 	setScore(serverData.new_score, serverData.num_tries);
+	setOpponentScore(serverData.opp_new_score, serverData.opp_num_tries);
 	break;
     case "opponent_paddle_update":
 	var opponentPaddlePos = serverData.opponent_paddle;
@@ -139,8 +130,6 @@ function connect(ipAddress, port, playerName) {
     server.bind('message', receiveMessage);
 
     server.connect();
-    /* This send message needs to be somehwere else too, server
-     is still in connecting state at this point*/
 }
 
 function disconnect(ipAddress, port, playerName) {

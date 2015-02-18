@@ -6,7 +6,7 @@ var offsetY = canvasOffset.top;
 var topWallRect;
 var farWallRect;
 var bottomWallRect;
-var paddle; // player one is me, player two is other
+var paddle;
 var paddleRight; // player one gets to be on Left, player two is on right
 var playerName;
 var playerNum;
