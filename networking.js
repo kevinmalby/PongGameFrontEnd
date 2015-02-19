@@ -26,13 +26,13 @@ function receiveMessage(payload) {
       server.send('message', JSON.stringify(json));
       break;
     case "wait":
-	$('#loading-container').show();
-	break;
+      $('#loading-container').show();
+      break;
     case "set_opponent":
-	setOpponent(serverData.name);
-	console.log("opponentName: " + serverData.name);
-	$('#loading-container').hide();
-	break;
+      setOpponent(serverData.name);
+      console.log("opponentName: " + serverData.name);
+      $('#loading-container').hide();
+      break;
     case "start":
       // Show start animation
       // don't know if keeping this, but good for now
@@ -52,18 +52,12 @@ function receiveMessage(payload) {
       disconnect(ipAddress, port, playerName);
       break;
     case "score_update":
-	setScore(serverData.new_score, serverData.num_tries);
-	setOpponentScore(serverData.opp_new_score, serverData.opp_num_tries);
-	break;
+      setScore(serverData.new_score, serverData.num_tries);
+      setOpponentScore(serverData.opp_new_score, serverData.opp_num_tries);
+      break;
     case "opponent_paddle_update":
       var opponentPaddlePos = JSON.parse(serverData.opponent_paddle);
-      if (playerNum == 1) {
-        setOpponentPaddle(opponentPaddlePos[0] + 974, opponentPaddlePos[1]);
-      }
-      else {
-        setOpponentPaddle(opponentPaddlePos[0], opponentPaddlePos[1]);
-      }
-
+      setOpponentPaddle(opponentPaddlePos[0], opponentPaddlePos[1]);
       break;
     case "ball_update":
       var pos = serverData.ball_position;
@@ -76,35 +70,19 @@ function receiveMessage(payload) {
 
 function initialize(playerNumber) {
   playerNum = playerNumber;
-  if (playerNum == 0) {
-    initialDataPlayerOne = {
-      "phase": "initial_dimensions",
-      "name": playerName,
-      "map_dimensions": [offsetX,
-        offsetY + (topWallRect.y + topWallRect.height),
-        1024, bottomWallRect.y - (topWallRect.y + topWallRect.height)
-      ],
-      "paddle_dimensions": [paddle.x, paddle.y,
-        paddle.height, paddle.width
-      ]
-    };
-    console.log(JSON.stringify(initialDataPlayerOne));
-    send(JSON.stringify(initialDataPlayerOne));
-  } else {
-    initialDataPlayerTwo = {
-      "phase": "initial_dimensions",
-      "name": playerName,
-      "map_dimensions": [offsetX,
-        offsetY + (topWallRect.y + topWallRect.height),
-        1024, bottomWallRect.y - (topWallRect.y + topWallRect.height)
-      ],
-      "paddle_dimensions": [984, paddle.y,
-        paddle.height, paddle.width
-      ]
-    };
-    console.log(JSON.stringify(initialDataPlayerTwo));
-    send(JSON.stringify(initialDataPlayerTwo));
-  }
+  initialData = {
+    "phase": "initial_dimensions",
+    "name": playerName,
+    "map_dimensions": [offsetX,
+      offsetY + (topWallRect.y + topWallRect.height),
+      1024, bottomWallRect.y - (topWallRect.y + topWallRect.height)
+    ],
+    "paddle_dimensions": [paddle.x, paddle.y,
+      paddle.height, paddle.width
+    ]
+  };
+  console.log(JSON.stringify(initialData));
+  send(JSON.stringify(initialData));
 
 }
 
@@ -130,7 +108,7 @@ function connect(ipAddress, port, playerName) {
   // //Log any messages sent from server
   server.bind('message', receiveMessage);
 
-    server.connect();
+  server.connect();
 }
 
 function disconnect(ipAddress, port, playerName) {
