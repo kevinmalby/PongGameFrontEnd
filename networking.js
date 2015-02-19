@@ -57,7 +57,9 @@ function receiveMessage(payload) {
       break;
     case "opponent_paddle_update":
       var opponentPaddlePos = JSON.parse(serverData.opponent_paddle);
+      console.log(opponentPaddlePos);
       setOpponentPaddle(opponentPaddlePos[0], opponentPaddlePos[1]);
+
       break;
     case "ball_update":
       var pos = serverData.ball_position;
