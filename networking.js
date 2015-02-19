@@ -39,6 +39,7 @@ function receiveMessage(payload) {
       canvas.style.visibility = "visible";
       $('#stats-header').show();
       $('#stats-container').show();
+      $('#stats-container2').show();
       subBtn.removeClass("disabled");
       subBtn.text("Disconnect");
 

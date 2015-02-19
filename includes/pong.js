@@ -144,6 +144,7 @@ function processForm(e) {
     canvas.style.visibility = "hidden";
     $("#stats-header").hide();
     $("#stats-container").hide();
+    $("#stats-container2").hide();
 
     disconnect(ipAddress, port, playerName);
   }
