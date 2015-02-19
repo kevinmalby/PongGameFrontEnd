@@ -75,24 +75,24 @@ function setScore(newScore, totalTries) {
 }
 
 function setOpponentScore(newScore, totalTries) {
-    if (score != newScore || attempts != totalTries) {
-        score = newScore;
-        attempts = totalTries;
-        $('#player2-name-display').text(otherPlayerName + "'s Stats");
-        $('#player2-success-rate').text("" + Math.round(score / attempts * 100) + "%");
-        $('#player2-total-hits').html(score);
-        $('#player2-total-misses').text(attempts);
+  if (score != newScore || attempts != totalTries) {
+    score = newScore;
+    attempts = totalTries;
+    $('#player2-name-display').text(otherPlayerName + "'s Stats");
+    $('#player2-success-rate').text("" + Math.round(score / attempts * 100) + "%");
+    $('#player2-total-hits').html(score);
+    $('#player2-total-misses').text(attempts);
 
   }
 
 }
 
 function setOpponent(opponentName) {
-    otherPlayerName = opponentName;
-    $('#player2-name-display').text(opponentName);
-    $('#player2-success-rate').text("0%");
-    $('#player2-total-hits').text("0");
-    $('#player2-total-misses').text("0");
+  otherPlayerName = opponentName;
+  $('#player2-name-display').text(opponentName);
+  $('#player2-success-rate').text("0%");
+  $('#player2-total-hits').text("0");
+  $('#player2-total-misses').text("0");
 }
 
 function processForm(e) {
@@ -191,11 +191,10 @@ $(document).keydown(function(e) {
 
   try {
     ctx.clearRect(paddle.x, paddle.y, paddle.width, paddle.height);
-  }
-  catch(err) {
+  } catch (err) {
     return;
   }
-    
+
 
   switch (e.which) {
 
@@ -238,3 +237,4 @@ if (canvas.attachEvent) {
   canvas.attachEvent("mousemove", handleMouseMove);
 } else {
   canvas.addEventListener("mousemove", handleMouseMove);
+}

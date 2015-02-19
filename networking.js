@@ -53,6 +53,8 @@ function receiveMessage(payload) {
       break;
     case "score_update":
       setScore(serverData.new_score, serverData.num_tries);
+      console.log(serverData.new_score);
+      console.log(serverData.num_tries);
       setOpponentScore(serverData.opp_new_score, serverData.opp_num_tries);
       break;
     case "opponent_paddle_update":
