@@ -67,7 +67,7 @@ function setScore(newScore, totalTries) {
     attempts = totalTries;
     $('#player-name-display').text(playerName + "'s Stats");
     $('#success-rate').text("" + Math.round(score / attempts * 100) + "%");
-    $('#total-hits').html(score);
+    $('#total-hits').text(score);
     $('#total-misses').text(attempts);
 
   }
@@ -80,7 +80,7 @@ function setOpponentScore(newScore, totalTries) {
         attempts = totalTries;
         $('#player2-name-display').text(otherPlayerName + "'s Stats");
         $('#player2-success-rate').text("" + Math.round(score / attempts * 100) + "%");
-        $('#player2-total-hits').html(score);
+        $('#player2-total-hits').text(score);
         $('#player2-total-misses').text(attempts);
 
   }
@@ -238,3 +238,4 @@ if (canvas.attachEvent) {
   canvas.attachEvent("mousemove", handleMouseMove);
 } else {
   canvas.addEventListener("mousemove", handleMouseMove);
+}
