@@ -88,11 +88,11 @@ function setOpponentScore(newScore, totalTries) {
 }
 
 function setOpponent(opponentName) {
-    otherPlayerName = opponentName;
-    $('#player2-name-display').text(opponentName);
-    $('#player2-success-rate').text("0%");
-    $('#player2-total-hits').text("0");
-    $('#player2-total-misses').text("0");
+  otherPlayerName = opponentName;
+  $('#player2-name-display').text(opponentName);
+  $('#player2-success-rate').text("0%");
+  $('#player2-total-hits').text("0");
+  $('#player2-total-misses').text("0");
 }
 
 function processForm(e) {
@@ -191,11 +191,10 @@ $(document).keydown(function(e) {
 
   try {
     ctx.clearRect(paddle.x, paddle.y, paddle.width, paddle.height);
-  }
-  catch(err) {
+  } catch (err) {
     return;
   }
-    
+
 
   switch (e.which) {
 
