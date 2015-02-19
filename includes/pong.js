@@ -66,7 +66,14 @@ function setScore(newScore, totalTries) {
     score = newScore;
     attempts = totalTries;
     $('#player-name-display').text(playerName + "'s Stats");
-    $('#success-rate').text("" + Math.round(score / attempts * 100) + "%");
+    if (score > 0 && attempts == 0){
+      $('#success-rate').text("100%");
+    } else if (score == 0 && attempts == 0) {
+      $('#success-rate').text("0%");
+    }
+    else {
+      $('#success-rate').text("" + Math.round(score / attempts * 100) + "%");
+    }
     $('#total-hits').html(score);
     $('#total-misses').text(attempts);
 
@@ -79,7 +86,14 @@ function setOpponentScore(newScore, totalTries) {
     score = newScore;
     attempts = totalTries;
     $('#player2-name-display').text(otherPlayerName + "'s Stats");
-    $('#player2-success-rate').text("" + Math.round(score / attempts * 100) + "%");
+    if (score > 0 && attempts == 0){
+      $('#player2-success-rate').text("100%");
+    } else if (score == 0 && attempts == 0) {
+      $('#player2-success-rate').text("0%");
+    }
+    else {
+      $('#player2-success-rate').text("" + Math.round(score / attempts * 100) + "%");
+    }
     $('#player2-total-hits').html(score);
     $('#player2-total-misses').text(attempts);
 
