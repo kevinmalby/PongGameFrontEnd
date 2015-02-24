@@ -66,6 +66,10 @@ form input[type=text] {
 	color: #5ABAD0;
 }
 
+#stats-container2 div {
+	color: #5ABAD0;
+}
+
 .glyphicon-refresh-animate {
     -animation: spin 1.2s infinite linear;
     -webkit-animation: spin2 1.2s infinite linear;

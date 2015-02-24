@@ -66,8 +66,15 @@ function setScore(newScore, totalTries) {
     score = newScore;
     attempts = totalTries;
     $('#player-name-display').text(playerName + "'s Stats");
-    $('#success-rate').text("" + Math.round(score / attempts * 100) + "%");
-    $('#total-hits').text(score);
+    if (score > 0 && attempts == 0){
+      $('#success-rate').text("100%");
+    } else if (score == 0 && attempts == 0) {
+      $('#success-rate').text("0%");
+    }
+    else {
+      $('#success-rate').text("" + Math.round(score / attempts * 100) + "%");
+    }
+    $('#total-hits').html(score);
     $('#total-misses').text(attempts);
 
   }
@@ -75,13 +82,20 @@ function setScore(newScore, totalTries) {
 }
 
 function setOpponentScore(newScore, totalTries) {
-    if (score != newScore || attempts != totalTries) {
-        score = newScore;
-        attempts = totalTries;
-        $('#player2-name-display').text(otherPlayerName + "'s Stats");
-        $('#player2-success-rate').text("" + Math.round(score / attempts * 100) + "%");
-        $('#player2-total-hits').text(score);
-        $('#player2-total-misses').text(attempts);
+  if (score != newScore || attempts != totalTries) {
+    score = newScore;
+    attempts = totalTries;
+    $('#player2-name-display').text(otherPlayerName + "'s Stats");
+    if (score > 0 && attempts == 0){
+      $('#player2-success-rate').text("100%");
+    } else if (score == 0 && attempts == 0) {
+      $('#player2-success-rate').text("0%");
+    }
+    else {
+      $('#player2-success-rate').text("" + Math.round(score / attempts * 100) + "%");
+    }
+    $('#player2-total-hits').html(score);
+    $('#player2-total-misses').text(attempts);
 
   }
 
@@ -130,6 +144,7 @@ function processForm(e) {
     canvas.style.visibility = "hidden";
     $("#stats-header").hide();
     $("#stats-container").hide();
+    $("#stats-container2").hide();
 
     disconnect(ipAddress, port, playerName);
   }
