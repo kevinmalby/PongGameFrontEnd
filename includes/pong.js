@@ -17,6 +17,7 @@ var attempts;
 var updateIncrement = 1;
 var previousY;
 var paddleDirection;
+var recvTimestamp;
 $('#stats-container').hide();
 $('#stats-header').hide();
 $('#loading-container').hide();
@@ -27,6 +28,7 @@ function playerDataToJSON() {
 
   var data = {
     "phase": "paddle_update",
+    "time_stamp": getTimeStamp(),
     "name": playerName,
     "paddle_direction": paddleDirection,
     "paddle_position": [paddle.x, paddle.y - (topWallRect.x + topWallRect.height)]
@@ -175,6 +177,12 @@ function setOpponentPaddle(newPaddleX, newPaddleY) {
 
   paddleRight.redraw(paddleRight.x, paddleRight.y);
 
+}
+
+function getTimestamp() {
+  var d = new Date();
+  var n = d.getTime();
+  return n;
 }
 
 function handleMouseMove(e) {
