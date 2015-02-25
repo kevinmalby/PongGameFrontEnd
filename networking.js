@@ -3,6 +3,9 @@ var updatePaddleIntervalID;
 
 function receiveMessage(payload) {
   serverData = JSON.parse(payload);
+
+  recvTimestamp = serverData.time_stamp;
+
   var json;
   switch (serverData.phase) {
     case "initialization":
@@ -13,6 +16,7 @@ function receiveMessage(payload) {
       initializeBall(serverData.ball_position, serverData.ball_size);
       json = {
         "phase": "ready_to_start",
+        "time_stamp": getTimeStamp(),
         "name": playerName,
         "ball_position": [ball.x, ball.y]
       };
@@ -21,6 +25,7 @@ function receiveMessage(payload) {
     case "send_info":
       json = {
         "phase": "exchange_info",
+        "time_stamp": getTimeStamp(),
         "name": playerName
       };
       server.send('message', JSON.stringify(json));
@@ -77,6 +82,7 @@ function initialize(playerNumber) {
   playerNum = playerNumber;
   initialData = {
     "phase": "initial_dimensions",
+    "time_stamp": getTimeStamp(),
     "name": playerName,
     "map_dimensions": [offsetX,
       offsetY + (topWallRect.y + topWallRect.height),
@@ -119,6 +125,7 @@ function connect(ipAddress, port, playerName) {
 function disconnect(ipAddress, port, playerName) {
   var json = {
     "phase": "disconnect",
+    "time_stamp": getTimeStamp(),
     "name": playerName
   };
   clearInterval(updatePaddleIntervalID);
