@@ -179,7 +179,7 @@ function setOpponentPaddle(newPaddleX, newPaddleY) {
 
 }
 
-function getTimestamp() {
+function getTimeStamp() {
   var d = new Date();
   var n = d.getTime();
   return n;
