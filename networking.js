@@ -35,7 +35,6 @@ function receiveMessage(payload) {
       break;
     case "set_opponent":
       setOpponent(serverData.name);
-      console.log("opponentName: " + serverData.name);
       $('#loading-container').hide();
       break;
     case "start":
@@ -49,7 +48,6 @@ function receiveMessage(payload) {
       subBtn.text("Disconnect");
 
       updatePaddleIntervalID = setInterval("updatePaddle();", 100);
-      console.log("updateID: " + updatePaddleIntervalID);
       break;
     case "disconnected":
       var ipAddress = $("#ip-address-input").val();
@@ -59,13 +57,10 @@ function receiveMessage(payload) {
       break;
     case "score_update":
       setScore(serverData.new_score, serverData.num_tries);
-      console.log(serverData.new_score);
-      console.log(serverData.num_tries);
       setOpponentScore(serverData.opp_new_score, serverData.opp_num_tries);
       break;
     case "opponent_paddle_update":
       var opponentPaddlePos = JSON.parse(serverData.opponent_paddle);
-      console.log(opponentPaddlePos);
       setOpponentPaddle(opponentPaddlePos[0], opponentPaddlePos[1]);
 
       break;
@@ -92,7 +87,6 @@ function initialize(playerNumber) {
       paddle.height, paddle.width
     ]
   };
-  console.log(JSON.stringify(initialData));
   send(JSON.stringify(initialData));
 
 }
@@ -129,7 +123,6 @@ function disconnect(ipAddress, port, playerName) {
     "name": playerName
   };
   clearInterval(updatePaddleIntervalID);
-  console.log("disconnecting");
   server.send("message", JSON.stringify(json));
   server.disconnect();
 

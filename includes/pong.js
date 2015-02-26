@@ -12,9 +12,11 @@ var playerName;
 var otherPlayerName;
 var playerNum;
 var ball;
+var ballPosition;
 var score;
 var attempts;
 var updateIncrement = 1;
+var updatePaddleCount = 0;
 var previousY;
 var paddleDirection;
 var recvTimestamp;
@@ -59,8 +61,8 @@ function initializeBall(position, ballSize) {
 function setBallPosition(position) {
   // todo, need to change this so that it works
   ctx.clearRect(ball.x - ball.radius, ball.y - ball.radius, ball.radius * 2, ball.radius * 2);
-  newBallPos = serverData.ball_position;
-  ball.redraw(newBallPos[0], newBallPos[1]);
+  ballPosition = serverData.ball_position;
+  ball.redraw(ballPosition[0], ballPosition[1]);
 }
 
 function setScore(newScore, totalTries) {
@@ -157,6 +159,7 @@ function processForm(e) {
 }
 
 function updatePaddle() {
+
   if (paddle.y - previousY < 0) {
     paddleDirection = -1;
   } else if (paddle.y - previousY > 0) {
@@ -166,7 +169,18 @@ function updatePaddle() {
   }
   previousY = paddle.y;
 
-  send(playerDataToJSON());
+  // if (ballPosition[0] < (1024 * 0.3) && updatePaddleCount == 10) {
+  //   send(playerDataToJSON());
+  //   updatePaddleCount = 0;
+  // } else if (ballPosition[0] >= (1024 * 0.3) && updatePaddleCount == 100) {
+  //   send(playerDataToJSON());
+  //   updatePaddleCount = 0;
+  // } else {
+  //   updatePaddleCount++;
+  // }
+  if (paddleDirection != 0) {
+    send(playerDataToJSON());
+  }
 }
 
 function setOpponentPaddle(newPaddleX, newPaddleY) {
