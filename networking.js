@@ -5,6 +5,10 @@ function receiveMessage(payload) {
   serverData = JSON.parse(payload);
 
   recvTimestamp = serverData.time_stamp;
+  timeDelaySum += (getTimeStamp() - recvTimestamp);;
+  packetCount++;
+
+  $("#time-delay").text("Average Packet Delay: " + (timeDelaySum/packetCount).toFixed(1) + "ms");
 
   var json;
   switch (serverData.phase) {
@@ -44,6 +48,7 @@ function receiveMessage(payload) {
       $('#stats-header').show();
       $('#stats-container').show();
       $('#stats-container2').show();
+      $('#time-delay').show();
       subBtn.removeClass("disabled");
       subBtn.text("Disconnect");
 
@@ -125,5 +130,8 @@ function disconnect(ipAddress, port, playerName) {
   clearInterval(updatePaddleIntervalID);
   server.send("message", JSON.stringify(json));
   server.disconnect();
+
+  packetCount = 0;
+  timeDelaySum = 0;
 
 }

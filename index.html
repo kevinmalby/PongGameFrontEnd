@@ -38,7 +38,7 @@
                     <div class="row" id="stats-header">
                         <div class="col-md-2 col-md-offset-4 text-center"><p>Success Rate</p></div>
                         <div class="col-md-2 text-center"><p>Total Hits</p></div>
-                        <div class="col-md-2 text-center"><p>Total Misses</p></div>
+                        <div class="col-md-2 text-center"><p>Total Tries</p></div>
                     </div>
                     <div class="row" id="stats-container">
                         <div class="col-md-4 text-right"><p id="player-name-display"></p></div>
@@ -51,6 +51,11 @@
                         <div class="col-md-2 text-center"><p id="player2-success-rate"></p></div>
                         <div class="col-md-2 text-center"><p id="player2-total-hits"></p></div>
                         <div class="col-md-2 text-center"><p id="player2-total-misses"></p></div>
+                    </div>
+                    <div class="row id="packet-delay-container"">
+                        <div class="col-md-12 text-center">
+                            <p class="timing-info" id="time-delay">Average Packet Delay:</p>
+                        </div>
                     </div>
                 </div>
                 <div class="container" id="loading-container">
@@ -78,17 +83,6 @@
                 <!-- Example row of columns -->
                 <div class="container">
                     <canvas id="canvas" width="1024" height="756"></canvas>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3-offset"/>
-                        <div class="col-md-3">
-                            <p class="timing-info">Average Packet Delay:</p>
-                        </div>
-                        <div class="col-md-3">
-                            <p class="timing-info" id="time-delay"></p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

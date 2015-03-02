@@ -20,9 +20,12 @@ var updatePaddleCount = 0;
 var previousY;
 var paddleDirection;
 var recvTimestamp;
+var timeDelaySum = 0;
+var packetCount = 0;
 $('#stats-container').hide();
 $('#stats-header').hide();
 $('#loading-container').hide();
+$('#time-delay').hide()
 
 var debug = false; // make it so I can see things without dealin with server :)
 
@@ -149,6 +152,7 @@ function processForm(e) {
     $("#stats-header").hide();
     $("#stats-container").hide();
     $("#stats-container2").hide();
+    $("#time-delay").hide();
 
     disconnect(ipAddress, port, playerName);
   }

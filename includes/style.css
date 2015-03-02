@@ -90,5 +90,12 @@ form input[type=text] {
 	margin: 0 auto;
 }
 
+.timing-info {
+	font-weight: bolder;
+	color: #8DAD89;
+	font-size: 70px;
+}
 
-
+.jumbotron .row p {
+	margin-bottom: 0px;
+}
