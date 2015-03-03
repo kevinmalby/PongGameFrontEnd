@@ -5,8 +5,11 @@ function receiveMessage(payload) {
   serverData = JSON.parse(payload);
 
   recvTimestamp = serverData.time_stamp;
-  timeDelaySum += (getTimeStamp() - recvTimestamp);;
+  console.log((getTimeStamp() - recvTimestamp));
+  timeDelaySum += (getTimeStamp() - recvTimestamp);
+  console.log("time delay sum: " + timeDelaySum);
   packetCount++;
+  console.log("pkt count: "+ packetCount);
 
   $("#time-delay").text("Average Packet Delay: " + (timeDelaySum/packetCount).toFixed(1) + "ms");
 
