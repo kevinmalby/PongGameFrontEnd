@@ -164,27 +164,32 @@ function processForm(e) {
 
 function updatePaddle() {
 
-  if (paddle.y - previousY < 0) {
-    paddleDirection = -1;
-  } else if (paddle.y - previousY > 0) {
-    paddleDirection = 1;
+  // if (paddle.y - previousY < 0) {
+  //   paddleDirection = -1;
+  // } else if (paddle.y - previousY > 0) {
+  //   paddleDirection = 1;
+  // } else {
+  //   paddleDirection = 0;
+  // }
+  
+
+  if (ballPosition[0] < (1024 * 0.3)) {
+    send(playerDataToJSON());
+    console.log("ball pos is close: " + ballPosition[0]);
+    updatePaddleCount = 0;
+  } else if (updatePaddleCount == 8) {
+    send(playerDataToJSON());
+    console.log("ball pos is far: " + ballPosition[0]);
+    updatePaddleCount = 0;
   } else {
-    paddleDirection = 0;
+    updatePaddleCount++;
   }
+
   previousY = paddle.y;
 
-  // if (ballPosition[0] < (1024 * 0.3) && updatePaddleCount == 10) {
+  // if (paddleDirection != 0) {
   //   send(playerDataToJSON());
-  //   updatePaddleCount = 0;
-  // } else if (ballPosition[0] >= (1024 * 0.3) && updatePaddleCount == 100) {
-  //   send(playerDataToJSON());
-  //   updatePaddleCount = 0;
-  // } else {
-  //   updatePaddleCount++;
   // }
-  if (paddleDirection != 0) {
-    send(playerDataToJSON());
-  }
 }
 
 function setOpponentPaddle(newPaddleX, newPaddleY) {
