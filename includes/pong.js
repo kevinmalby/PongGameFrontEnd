@@ -72,6 +72,7 @@ function setBallPosition(position) {
   ctx.clearRect(ball.x - ball.radius, ball.y - ball.radius, ball.radius * 2, ball.radius * 2);
   ballPosition = position;
   //console.log("Ball x: " + ballPosition[0] + ", Ball y: " + ballPosition[1]);
+  console.log("Setting new point - x: " + position[0] + ", y: " + position[1]);
   ball.redraw(ballPosition[0], ballPosition[1]);
 }
 
@@ -176,7 +177,7 @@ function predictLoop() {
       console.log("predicted ball y: " + (ball.y + (predictDistance.y / (delay/10))));
 
 
-      setBallPosition(ball.x + (predictDistance.x / (delay/10)), ball.y + (predictDistance.y / (delay/10)));
+      setBallPosition([Math.round(ball.x + (predictDistance.x / (delay/10))), Math.round(ball.y + (predictDistance.y / (delay/10)))]);
 
     }
 
