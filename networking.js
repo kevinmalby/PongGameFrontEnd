@@ -51,7 +51,8 @@ function receiveMessage(payload) {
       $('#time-delay').show();
       subBtn.removeClass("disabled");
       subBtn.text("Disconnect");
-      setTimeout("updateLoop();", timeDelaySum/packetCount*2);
+      //setTimeout("updateLoop();", timeDelaySum/packetCount*2);
+      setInterval("predictLoop();", 10);
       updatePaddleIntervalID = setInterval("updatePaddle();", 100);
       break;
     case "disconnected":
@@ -75,8 +76,8 @@ function receiveMessage(payload) {
 
       // Store the ball update in a buffer
       ballUpdateQueue.push(pos);
-      if (ballUpdateQueue.length > 3)
-        ballUpdateQueue.shift();
+      // if (ballUpdateQueue.length > 3)
+      //   ballUpdateQueue.shift();
       //setBallPosition(pos);
       break;
   }
