@@ -27,6 +27,7 @@ var updateLoopTimer = null;
 var firstUpdate = true;
 var pastPosition;
 var interpolateCount = 1;
+var predictDistance;
 $('#stats-container').hide();
 $('#stats-header').hide();
 $('#loading-container').hide();
@@ -79,12 +80,11 @@ function setScore(newScore, totalTries) {
     score = newScore;
     attempts = totalTries;
     $('#player-name-display').text(playerName + "'s Stats");
-    if (score > 0 && attempts == 0){
+    if (score > 0 && attempts == 0) {
       $('#success-rate').text("100%");
     } else if (score == 0 && attempts == 0) {
       $('#success-rate').text("0%");
-    }
-    else {
+    } else {
       $('#success-rate').text("" + Math.round(score / attempts * 100) + "%");
     }
     $('#total-hits').html(score);
@@ -99,12 +99,11 @@ function setOpponentScore(newScore, totalTries) {
     score = newScore;
     attempts = totalTries;
     $('#player2-name-display').text(otherPlayerName + "'s Stats");
-    if (score > 0 && attempts == 0){
+    if (score > 0 && attempts == 0) {
       $('#player2-success-rate').text("100%");
     } else if (score == 0 && attempts == 0) {
       $('#player2-success-rate').text("0%");
-    }
-    else {
+    } else {
       $('#player2-success-rate').text("" + Math.round(score / attempts * 100) + "%");
     }
     $('#player2-total-hits').html(score);
@@ -126,24 +125,61 @@ function updateLoop() {
   if (firstUpdate) {
     updateLoopTimer = setInterval("updateLoop();", 10);
     firstUpdate = false;
-  }
-  else {
-    if (pastPosition == ballUpdateQueue[ballUpdateQueue.length-2]) {
+  } else {
+    if (pastPosition == ballUpdateQueue[ballUpdateQueue.length - 2]) {
       interpolateCount++;
     } else {
       interpolateCount = 1;
     }
 
-    distanceVector = getDistanceVector(ballUpdateQueue[ballUpdateQueue.length-1], ballUpdateQueue[ballUpdateQueue.length-2]);
-    yAdjust = distanceVector.y / ((timeDelaySum/packetCount)/10);
-    xAdjust = distanceVector.x / ((timeDelaySum/packetCount)/10);
+    distanceVector = getDistanceVector(ballUpdateQueue[ballUpdateQueue.length - 1], ballUpdateQueue[ballUpdateQueue.length - 2]);
+    yAdjust = distanceVector.y / ((timeDelaySum / packetCount) / 10);
+    xAdjust = distanceVector.x / ((timeDelaySum / packetCount) / 10);
 
-    curPos = ballUpdateQueue[ballUpdateQueue.length-2];
+    curPos = ballUpdateQueue[ballUpdateQueue.length - 2];
 
-    updatePos = [curPos[0] + xAdjust*interpolateCount, curPos[1] + yAdjust*interpolateCount];
+    if (Math.abs(curPos[0] + xAdjust * interpolateCount) > Math.abs(ballUpdateQueue[ballUpdateQueue.length - 1][0]) ||
+      Math.abs(curPos[1] + yAdjust * interpolateCount) > Math.abs(ballUpdateQueue[ballUpdateQueue.length - 1][1])) {
+      curPos = ballUpdateQueue[ballUpdateQueue.length - 1];
+    } else {
+
+      updatePos = [curPos[0] + xAdjust * interpolateCount, curPos[1] + yAdjust * interpolateCount];
+    }
     setBallPosition(updatePos);
 
     pastPosition = curPos;
+  }
+
+}
+
+function predictLoop() {
+
+  if (firstUpdate) {
+    if (ballUpdateQueue.length > 0)
+      firstUpdate = false;
+      pastPosition = ballUpdateQueue[0];
+  } else {
+    if (ballUpdateQueue.length > 0) {
+      updatePos = ballUpdateQueue.shift();
+      setBallPosition(updatePos);
+      predictDistance = getDistanceVector(updatePos, pastPosition);
+      pastPosition = updatePos;
+      console.log("Set new authoritative point: " + updatePos);
+      interpolateCount = 1;
+    } else {
+      
+      delay = timeDelaySum/packetCount;
+
+      console.log("ball x: " + ball.x);
+      console.log("ball y: " + ball.y);
+      console.log("predicted ball x: " + (ball.x + (predictDistance.x / (delay/10))));
+      console.log("predicted ball y: " + (ball.y + (predictDistance.y / (delay/10))));
+
+
+      setBallPosition(ball.x + (predictDistance.x / (delay/10)), ball.y + (predictDistance.y / (delay/10)));
+
+    }
+
   }
 
 }
@@ -210,7 +246,7 @@ function updatePaddle() {
   // } else {
   //   paddleDirection = 0;
   // }
-  
+
 
   if (ballPosition[0] < (1024 * 0.3)) {
     send(playerDataToJSON());
