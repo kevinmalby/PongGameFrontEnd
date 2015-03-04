@@ -5,11 +5,8 @@ function receiveMessage(payload) {
   serverData = JSON.parse(payload);
 
   recvTimestamp = serverData.time_stamp;
-  console.log((getTimeStamp() - recvTimestamp));
   timeDelaySum += (getTimeStamp() - recvTimestamp);
-  console.log("time delay sum: " + timeDelaySum);
   packetCount++;
-  console.log("pkt count: "+ packetCount);
 
   $("#time-delay").text("Average Packet Delay: " + (timeDelaySum/packetCount).toFixed(1) + "ms");
 
@@ -54,7 +51,7 @@ function receiveMessage(payload) {
       $('#time-delay').show();
       subBtn.removeClass("disabled");
       subBtn.text("Disconnect");
-
+      setTimeout("updateLoop();", timeDelaySum/packetCount*2);
       updatePaddleIntervalID = setInterval("updatePaddle();", 100);
       break;
     case "disconnected":
@@ -75,7 +72,12 @@ function receiveMessage(payload) {
     case "ball_update":
       var pos = serverData.ball_position;
       pos[1] = pos[1] + (topWallRect.y + topWallRect.height);
-      setBallPosition(pos);
+
+      // Store the ball update in a buffer
+      ballUpdateQueue.push(pos);
+      if (ballUpdateQueue.length > 3)
+        ballUpdateQueue.shift();
+      //setBallPosition(pos);
       break;
   }
 }
