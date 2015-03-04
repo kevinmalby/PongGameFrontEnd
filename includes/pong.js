@@ -22,6 +22,11 @@ var paddleDirection;
 var recvTimestamp;
 var timeDelaySum = 0;
 var packetCount = 0;
+var ballUpdateQueue = [];
+var updateLoopTimer = null;
+var firstUpdate = true;
+var pastPosition;
+var interpolateCount = 1;
 $('#stats-container').hide();
 $('#stats-header').hide();
 $('#loading-container').hide();
@@ -64,7 +69,8 @@ function initializeBall(position, ballSize) {
 function setBallPosition(position) {
   // todo, need to change this so that it works
   ctx.clearRect(ball.x - ball.radius, ball.y - ball.radius, ball.radius * 2, ball.radius * 2);
-  ballPosition = serverData.ball_position;
+  ballPosition = position;
+  //console.log("Ball x: " + ballPosition[0] + ", Ball y: " + ballPosition[1]);
   ball.redraw(ballPosition[0], ballPosition[1]);
 }
 
@@ -114,6 +120,39 @@ function setOpponent(opponentName) {
   $('#player2-success-rate').text("0%");
   $('#player2-total-hits').text("0");
   $('#player2-total-misses').text("0");
+}
+
+function updateLoop() {
+  if (firstUpdate) {
+    updateLoopTimer = setInterval("updateLoop();", 10);
+    firstUpdate = false;
+  }
+  else {
+    if (pastPosition == ballUpdateQueue[ballUpdateQueue.length-2]) {
+      interpolateCount++;
+    } else {
+      interpolateCount = 1;
+    }
+
+    distanceVector = getDistanceVector(ballUpdateQueue[ballUpdateQueue.length-1], ballUpdateQueue[ballUpdateQueue.length-2]);
+    yAdjust = distanceVector.y / ((timeDelaySum/packetCount)/10);
+    xAdjust = distanceVector.x / ((timeDelaySum/packetCount)/10);
+
+    curPos = ballUpdateQueue[ballUpdateQueue.length-2];
+
+    updatePos = [curPos[0] + xAdjust*interpolateCount, curPos[1] + yAdjust*interpolateCount];
+    setBallPosition(updatePos);
+
+    pastPosition = curPos;
+  }
+
+}
+
+function getDistanceVector(recentPoint, pastPoint) {
+  var distVect = [];
+  distVect.x = recentPoint[0] - pastPoint[0];
+  distVect.y = recentPoint[1] - pastPoint[1];
+  return distVect;
 }
 
 function processForm(e) {
@@ -175,11 +214,9 @@ function updatePaddle() {
 
   if (ballPosition[0] < (1024 * 0.3)) {
     send(playerDataToJSON());
-    console.log("ball pos is close: " + ballPosition[0]);
     updatePaddleCount = 0;
   } else if (updatePaddleCount == 8) {
     send(playerDataToJSON());
-    console.log("ball pos is far: " + ballPosition[0]);
     updatePaddleCount = 0;
   } else {
     updatePaddleCount++;
