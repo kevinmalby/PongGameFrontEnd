@@ -52,7 +52,7 @@ function receiveMessage(payload) {
       subBtn.removeClass("disabled");
       subBtn.text("Disconnect");
       //setTimeout("updateLoop();", timeDelaySum/packetCount*2);
-      setInterval("predictLoop();", 10);
+      //setInterval("predictLoop();", 10);
       updatePaddleIntervalID = setInterval("updatePaddle();", 100);
       break;
     case "disconnected":
@@ -75,10 +75,10 @@ function receiveMessage(payload) {
       pos[1] = pos[1] + (topWallRect.y + topWallRect.height);
 
       // Store the ball update in a buffer
-      ballUpdateQueue.push(pos);
+      //ballUpdateQueue.push(pos);
       // if (ballUpdateQueue.length > 3)
       //   ballUpdateQueue.shift();
-      //setBallPosition(pos);
+      setBallPosition(pos);
       break;
   }
 }
