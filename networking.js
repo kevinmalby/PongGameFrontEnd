@@ -26,6 +26,17 @@ function receiveMessage(payload) {
       };
       server.send('message', JSON.stringify(json));
       break;
+    case "request_sync":
+      curTime = getTimeStamp();
+      json = {
+        "phase":"reply_sync",
+        "time_stamp":getTimeStamp(),
+        "time_stamp_first":parseInt(recvTimestamp),
+        "time_stamp_second":curTime,
+        "time_stamp_third":getTimeStamp()
+      };
+      server.send('message', JSON.stringify(json));
+      break;
     case "send_info":
       json = {
         "phase": "exchange_info",
