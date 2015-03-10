@@ -277,9 +277,18 @@ function setOpponentPaddle(newPaddleX, newPaddleY) {
 }
 
 function getTimeStamp() {
-  var d = new Date();
-  var n = d.getTime();
-  return n;
+    var d = new Date();
+    var n = 0;
+    console.log(offset);
+    if(playerNum == 0){
+	n = d.getTime();
+	n -= offset;
+    }
+    else {
+	n = d.getTime() + 123456789;
+	n -= offset;
+    }
+    return n;
 }
 
 function handleMouseMove(e) {

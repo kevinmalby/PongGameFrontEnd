@@ -1,5 +1,6 @@
 var server;
 var updatePaddleIntervalID;
+var offset;
 
 function receiveMessage(payload) {
   serverData = JSON.parse(payload);
@@ -35,6 +36,8 @@ function receiveMessage(payload) {
         "time_stamp_second":curTime,
         "time_stamp_third":getTimeStamp()
       };
+      offset = serverData.clock_offset;
+
       server.send('message', JSON.stringify(json));
       break;
     case "send_info":
